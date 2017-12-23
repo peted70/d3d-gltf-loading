@@ -9,6 +9,13 @@
 
 #include <filesystem> 
 
+class Mesh
+{
+private:
+	Microsoft::WRL::ComPtr<ID3D11Buffer> _meshBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> _meshIndexBuffer;
+};
+
 using namespace tinygltf;
 using namespace ShaderCode;
 using namespace DirectX;
@@ -320,6 +327,9 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	});
 
 	// Create a task to load a GLTF file in...
+
+#if 0
+	// Create a task to load a GLTF file in...
 	auto modelPath = Windows::ApplicationModel::Package::Current->InstalledLocation->Path +
 		fs::path::preferred_separator + "Assets" + fs::path::preferred_separator + "BoomBox.glb";
 
@@ -437,6 +447,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		//		);
 		//	}
 		});
+#endif
 
 	// Once both shaders are loaded, create the mesh.
 	auto createCubeTask = (createPSTask && createVSTask).then([this] () {
